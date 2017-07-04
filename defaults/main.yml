@@ -1,0 +1,8 @@
+PGPASSFILE: ~/.pgpass
+
+modoboa_ab_dump_dir: "~/.local/share/modoboa_dump_dir/"
+modoboa_ab_local_backup_storage: ~/modoboa_backups/
+modoboa_ab_remove_after: false
+
+modoboa_ab_file: "{{ modoboa_ab_dump_dir }}{{ modoboa_ab_prefix }}"
+modoboa_ab_prefix: "{{ ansible_date_time.date }}-"

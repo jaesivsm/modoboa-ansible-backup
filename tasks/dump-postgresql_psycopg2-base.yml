@@ -1,0 +1,21 @@
+- name: writing .pgpass
+  shell: "echo *:*:*:*:{{ item.value.PASSWORD }} > {{ PGPASSFILE }}"
+
+- file:
+    mode: 0600
+    path: ~/.pgpass
+    state: file
+
+- name: "dumping {{ item.key }} base"
+  shell: "pg_dump --host={{ item.value.HOST }} --user={{ item.value.USER }} {{ item.value.NAME }} | gzip > {{ modoboa_ab_file }}{{ inventory_hostname }}-{{ item.key }}.sql.gz"
+
+- name: deleting .pgpass
+  file:
+    state: absent
+    path: ~/.pgpass
+
+- name: "retrieving {{ item.key }} dump"
+  synchronize:
+    mode: pull
+    src: "{{ modoboa_ab_file }}{{ inventory_hostname }}-{{ item.key }}.sql.gz"
+    dest: "{{ modoboa_ab_local_backup_storage }}"

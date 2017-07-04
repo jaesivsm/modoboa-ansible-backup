@@ -1,0 +1,8 @@
+- name: "dumping {{ item.key }} base"
+  shell: "mysqldump --user={{ item.value.NAME }} --password={{ item.value.PASSWORD }} --host={{ item.value.HOST }} {{ item.value.NAME }} | gzip > {{ modoboa_ab_file }}{{ inventory_hostname }}-{{ item.key }}.sql.gz"
+
+- name: "retrieving {{ item.key }} dump"
+  synchronize:
+    mode: pull
+    src: "{{ modoboa_ab_file }}{{ inventory_hostname }}-{{ item.key }}.sql.gz"
+    dest: "{{ modoboa_ab_local_backup_storage }}"

@@ -1,0 +1,41 @@
+galaxy_info:
+  author: jaesivsm
+  description: ansible role to backup a modoboa instance datas
+  license: GPL v3.0
+  dependencies: []
+  min_ansible_version: 2.3.1.0
+  galaxy_tags: ['modoboa', 'backup']
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: GenericUNIX
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: opensuse
+      versions:
+        - all
+    - name: Amazon
+      versions:
+        - all
+    - name: GenericBSD
+      versions:
+        - all
+    - name: FreeBSD
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: SLES
+      versions:
+        - all
+    - name: GenericLinux
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
