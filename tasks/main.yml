@@ -39,4 +39,4 @@
   file:
     path: "{{ modoboa_ab_dump_dir }}"
     state: absent
-  when: "{{ modoboa_ab_remove_after }}"
+  when: modoboa_ab_remove_after
