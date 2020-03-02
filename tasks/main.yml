@@ -1,9 +1,8 @@
 - name: retrieving DB credentials 1/2
-  shell: ~/env/bin/python2 -c "import json; from instance.settings import DATABASES; print json.dumps(DATABASES)"
+  shell: /srv/modoboa/env/bin/python2 -c "import json; from instance.settings import DATABASES; print json.dumps(DATABASES)"
   args:
     chdir: /srv/modoboa/instance/
   become: true
-  become_user: modoboa
   register: db_credentials_raw
 
 - name: retrieving DB credentials 2/2
@@ -16,21 +15,10 @@
     mode: 0777
     path: "{{ modoboa_ab_dump_dir }}"
 
-- name: creating local dump directory
-  file:
-    state: directory
-    path: "{{ modoboa_ab_local_backup_storage }}"
-  delegate_to: localhost
-
 - archive:
     path: /srv/vmail
     dest: "{{ modoboa_ab_file }}{{ inventory_hostname }}-vmail_data.tgz"
     owner: "{{ ansible_user_id }}"
-
-- synchronize:
-    mode: pull
-    src: "{{ modoboa_ab_file }}{{ inventory_hostname }}-vmail_data.tgz"
-    dest: "{{ modoboa_ab_local_backup_storage }}"
 
 - include: "dump-{{ item.value.ENGINE.split('.')[-1] }}-base.yml"
   with_dict: "{{ db_credentials }}"
